@@ -30,8 +30,12 @@ class Dijkstras(object):
             self.unvisited.remove(i)
             adjacent_nodes = list(self.arc_lengths[i].keys())
             for adjacent in adjacent_nodes:
-                if self.distance_label[adjacent] > self.distance_label[i] + self.arc_lengths[i][adjacent]:
-                    self.distance_label[adjacent] = self.distance_label[i] + self.arc_lengths[i][adjacent]
+                new_path_distance = (self.distance_label[i] + 
+                                        self.arc_lengths[i][adjacent])
+                is_far_away = (self.distance_label[adjacent] > 
+                            new_path_distance)
+                if is_far_away:
+                    self.distance_label[adjacent] = new_path_distance
                     self.predecessor[adjacent] = i
 
 if __name__ == '__main__':
@@ -51,3 +55,7 @@ if __name__ == '__main__':
     method = Dijkstras(nodes,arc_lengths,source)
 
     method.solve()
+
+    method.distance_label
+
+    method.predecessor
